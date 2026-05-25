@@ -17,10 +17,12 @@ jobs:
         with:
           node-version: 22
 
-      - name: Configure npm registry
+      - name: Configure npm auth
         run: |
-          npm config set registry https://npm.cloudsmith.io/simran-parwani-testorg/npm/
-          //npm.cloudsmith.io/simran-parwani-testorg/npm/:_authToken=7PNYNoxZZ6S1hXvC
+            cat <<EOF > ~/.npmrc
+            registry=https://npm.cloudsmith.io/simran-parwani-testorg/npm/
+            //npm.cloudsmith.io/simran-parwani-testorg/npm/:_authToken=7PNYNoxZZ6S1hXvC
+            EOF
 
       - name: Install dependencies
         run: npm install
