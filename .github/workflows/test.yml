@@ -1,0 +1,29 @@
+name: Test npm audit signatures
+
+on:
+  workflow_dispatch:
+  push:
+
+jobs:
+  audit-signatures:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+
+      - name: Configure npm registry
+        run: |
+          npm config set registry https://npm.cloudsmith.io/simran-parwani-testorg/npm/
+          //npm.cloudsmith.io/simran-parwani-testorg/npm/:_authToken=7PNYNoxZZ6S1hXvC
+
+      - name: Install dependencies
+        run: npm install
+
+      - name: Run npm audit signatures
+        run: npm audit signatures || true
